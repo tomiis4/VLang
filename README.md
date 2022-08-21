@@ -1,4 +1,4 @@
-# VLang
+# VLang Cheat sheet (In progress.)
 
 ## Run 
 `v run hello.v`
@@ -52,7 +52,7 @@ large_number := i64(9999999999)
 array := [1, 2, 3]
 object := {
 	'one': 1
-  'two': 2
+	'two': 2
 }
 ```
 
