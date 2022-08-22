@@ -1,27 +1,32 @@
-fn draw_dot(x int, y int, pixel_used int) {
-	index := (3 * (y -1)) + (x-1)
-	mut board_object := [
-		" ", " ", " ",
-		" ", " ", " ",
-		" ", " ", " ", " "
-	]
-
-	board_object[index] = "X"
-	println("-----------------------------------------")
-	// println(board_object[0] = "x")
-	println(board_object)
-	println("-----------------------------------------")
-	// println("$top $left $message")
+fn abs(x int) int {
+	if x.str().contains("-") {
+		return x * -1
+	} else {
+		return x
+	}
 }
 
-fn draw_line(x1 int, y1 int, x2 int, y2 int) {
-	mut a := 2 * (y2 - y1)
-    mut error := a - (x2 - x1)
-    mut b := a - (2 * (x2 - x1))
+fn sign(x int) int {
+    if x > 0 {
+        return 1
+	}
+    else if x < 0 {
+        return -1
+	}
+    else { 
+		return 0
+	}
+}
+
+fn draw_line_better(x1 int, y1 int, x2 int, y2 int) {
     mut x := x1
     mut y := y1
-	mut pixel_used := 0
-	mut board_object := [
+    mut dx := abs(x2 - x1 )
+    mut dy := abs(y2 - y1 )
+    mut s1 := sign(x2 - x1)
+    mut s2 := sign(y2 - y1)
+	mut interchange := "false"
+	mut board_object := [ 
 		" #","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#\n",
 		"#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#\n",
 		"#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#\n",
@@ -49,30 +54,46 @@ fn draw_line(x1 int, y1 int, x2 int, y2 int) {
 		"#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#\n"
 	]
 
-	for x <= x2 {
-		pixel_used = pixel_used + 1
-		x = x +1
+	if dy > dx {
+        mut t := dx
+        dx = dy
+        dy = t
+        interchange = "true"
+	} else {
+		interchange = "false"
+	}
 
-		println("---------------------------------------------------------------------------------------------------------------------------")
-		
-		index := (25 * (y -1)) + (x-1)
+	mut error := 2*dy - dx
+    mut a := 2*dy
+	mut b := 2*dy - 2*dx
+
+	mut index := (25 * (y -1)) + (x-1)
+	board_object[index] = " "
+	println(board_object.str().replace_each([',', '',  '[','', ']','', "'", '']) )
+
+	mut i := -1
+	for i < (dx - 1) {
+		i++
+
+        if error < 0 {
+            if interchange != "false" {
+                y = y + s2
+			} else {
+                x = x + s1
+				error = error + a
+			}
+		} else {
+            y = y + s2
+            x = x + s1
+            error = error + b
+		} 
+
+		index = (25 * (y -1)) + (x-1)
 		board_object[index] = " "
 		println(board_object.str().replace_each([',', '',  '[','', ']','', "'", '']) )
-
-		println("---------------------------------------------------------------------------------------------------------------------------")
-
-		mut error1 := error + a
-		mut error2 := error + b
-
-		if error1 >=0 {
-			y = y +1
-			error = error2
-		} else {
-			error = error1
-		}
 	}
 }
 
 fn main() {
-	draw_line(5, 5,  20, 10) // left, top   left top
+	draw_line_better(5,5, 20,20) // x1 y1, x2 y2   min: 1,1 max: 25,25
 }
