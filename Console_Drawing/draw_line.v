@@ -123,6 +123,16 @@ fn main() {
 		"# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# \n",
 		"# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# ","# \n"
 	]
-	draw_line_better(5,5, 20,20, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
-	draw_line_better(5,5, 2,20, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(10,6, 22,6, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(4,9, 16,9, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(10,6, 4,9, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(22,6, 16,9, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(4,9, 4,21, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(10,6, 10,18, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(22,6, 22,18, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(10,18, 4,21, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(22,18, 16,21, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(10,18, 22,18, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(4,21, 16,21, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
+	draw_line_better(16,9, 16,21, mut board_object) // x1 y1, x2 y2   min: 1,1 max: 25,25
 }
