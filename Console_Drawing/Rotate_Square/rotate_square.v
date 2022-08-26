@@ -125,14 +125,10 @@ fn main() {
 }
 
 fn three_dimensional_square(scaleMain int, mut board []string) {
-	// draw all sqares/lines to draw 3D square
-	// square_thick(scaleMain, mut board)
-	// square_inner((scaleMain / 3) * 2, mut board)
-	// midlle_lines(scaleMain, (scaleMain / 3) * 2, mut board)
-	full_square(scaleMain, (scaleMain / 3) * 2, mut board, 5)
+	full_square(scaleMain, (scaleMain / 3) * 2, mut board, 0.6)
 }
 
-fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
+fn full_square(widthMain int, widthSecond int, mut board []string, rotate f64) {
 	main_get_position := 15 - (widthMain / 2)
 	main_position_variable := main_get_position + 1
 	main_width_variable := (widthMain + main_position_variable) -1
@@ -144,10 +140,10 @@ fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
 	println("Pos: $main_position_variable")
 	println("Wid: $main_width_variable")
 	// get vectors
-	mut vector1 := [main_position_variable, main_position_variable, widthMain] // front  left top
-	mut vector3 := [main_width_variable, main_position_variable, widthMain] // front  right top
-	mut vector5 := [main_position_variable, main_width_variable, widthMain] // front  left  bottom
-	mut vector7 := [main_width_variable, main_width_variable, widthMain] // front  right bottom
+	mut vector1 := [main_position_variable, main_position_variable, 0] // front  left top
+	mut vector3 := [main_width_variable, main_position_variable, 0] // front  right top
+	mut vector5 := [main_position_variable, main_width_variable, 0] // front  left  bottom
+	mut vector7 := [main_width_variable, main_width_variable, 0] // front  right bottom
 
 	mut vector0 := [main_position_variable, main_position_variable, -widthMain] // back   left top
 	mut vector2 := [main_width_variable, main_position_variable, -widthMain] // back   right top
@@ -171,11 +167,12 @@ fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
 	mut lines10 := [2, 6] // back right line 
 	mut lines := [lines0, lines1, lines2, lines3, lines4, lines5, lines6, lines7, lines8, lines9, lines10, lines11]
 
-	mut sin_theta := math.sin(5)
-  mut cos_theta := math.cos(5)
+	mut sin_theta := math.sin(rotate)
+  mut cos_theta := math.cos(rotate)
   
 	// Rotate around Z (round)
-	// mut rotate_z := vectors.len //0
+	//? remove comment to rotate
+	// mut rotate_z := 0
   // for rotate_z < vectors.len {
   //   mut vector := vectors[rotate_z]
   //   mut x := vector[0]
@@ -223,7 +220,7 @@ fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
   }
 
 
-	// draw it
+	// draw square
 	mut e := 0
 	for e < lines.len {
 		mut n0 := lines[e][0]
@@ -234,53 +231,4 @@ fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
 		
 		e++
   }
-}
-
-fn square_thick(width int, mut board []string) {
-	get_position := 15 - (width / 2)
-	position_variable := get_position + 1
-	width_variable := (width + position_variable) -1
-
-	// draw front top
-	draw_line(position_variable,position_variable, width_variable,position_variable, mut board)
-	// draw front left
-	draw_line(position_variable,position_variable, position_variable,width_variable, mut board) 
-	// draw front right
-	draw_line(width_variable,position_variable, width_variable,width_variable, mut board) 
-	// draw front bottom
-	draw_line(position_variable,width_variable, width_variable,width_variable, mut board) 
-}
-
-fn square_inner(width int, mut board []string) {
-	get_position := 15 - (width / 2)
-	position_variable := get_position + 1
-	width_variable := (width + position_variable) -1
-
-	// draw back top
-	draw_line(position_variable,position_variable, width_variable, position_variable, mut board) 
-	// draw bottom left
-	draw_line(position_variable,position_variable, position_variable,width_variable, mut board) 
-	// draw bottom right
-	draw_line(width_variable,position_variable, width_variable,width_variable, mut board) 
-	// draw bottom bottom
-	draw_line(position_variable,width_variable, width_variable,width_variable, mut board) 
-}
-
-fn midlle_lines(widthMain int, widthSecond int, mut board []string) {
-	main_get_position := 15 - (widthMain / 2)
-	main_position_variable := main_get_position + 1
-	main_width_variable := (widthMain + main_position_variable) -1
-
-	second_get_position := 15 - (widthSecond / 2)
-	second_position_variable := second_get_position + 1
-	second_width_variable := (widthSecond + second_position_variable) -1
-
-	//left top line
-	draw_line(main_position_variable,main_position_variable, second_position_variable,second_position_variable, mut board)
-	//right top line
-	draw_line(main_width_variable,main_position_variable,  second_width_variable, second_position_variable, mut board)
-	//left bottom line
-	draw_line(main_position_variable,main_width_variable,  second_position_variable,second_width_variable, mut board)
-	//right bottom line
-	draw_line(main_width_variable,main_width_variable,  second_width_variable,second_width_variable, mut board)
 }
