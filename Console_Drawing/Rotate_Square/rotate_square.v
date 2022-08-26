@@ -141,15 +141,18 @@ fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
 	second_position_variable := second_get_position + 1
 	second_width_variable := (widthSecond + second_position_variable) -1
 
+	println("Pos: $main_position_variable")
+	println("Wid: $main_width_variable")
 	// get vectors
-	mut vector1 := [main_position_variable, main_position_variable, main_width_variable] // front  left top
-	mut vector3 := [main_width_variable, main_position_variable, main_width_variable] // front  right top
-	mut vector5 := [main_position_variable, main_width_variable, main_width_variable] // front  left  bottom
-	mut vector7 := [main_width_variable, main_width_variable, main_width_variable] // front  right bottom
-	mut vector0 := [second_position_variable, second_position_variable, -second_width_variable] // back   left top
-	mut vector2 := [second_width_variable, second_position_variable, -second_width_variable] // back   right top
-	mut vector4 := [second_position_variable, second_width_variable, -second_width_variable] // back   left  bottom
-	mut vector6 := [second_width_variable, second_width_variable, -second_width_variable] // back   right bottom
+	mut vector1 := [main_position_variable, main_position_variable, widthMain] // front  left top
+	mut vector3 := [main_width_variable, main_position_variable, widthMain] // front  right top
+	mut vector5 := [main_position_variable, main_width_variable, widthMain] // front  left  bottom
+	mut vector7 := [main_width_variable, main_width_variable, widthMain] // front  right bottom
+
+	mut vector0 := [main_position_variable, main_position_variable, -widthMain] // back   left top
+	mut vector2 := [main_width_variable, main_position_variable, -widthMain] // back   right top
+	mut vector4 := [main_position_variable, main_width_variable, -widthMain] // back   left  bottom
+	mut vector6 := [main_width_variable, main_width_variable, -widthMain] // back   right bottom
 	mut vectors := [vector0, vector1, vector2, vector3, vector4, vector5, vector6, vector7]
 	
 	mut lines0  := [0, 1] // connect line left/top
@@ -166,101 +169,72 @@ fn full_square(widthMain int, widthSecond int, mut board []string, rotate int) {
 	mut lines7  := [6, 4] // back bottom line 
 	mut lines8  := [0, 4] // back left line 
 	mut lines10 := [2, 6] // back right line 
-	mut liness := [lines0, lines1, lines2, lines3, lines4, lines5, lines6, lines7, lines8, lines9, lines10, lines11]
-	
-	
+	mut lines := [lines0, lines1, lines2, lines3, lines4, lines5, lines6, lines7, lines8, lines9, lines10, lines11]
 
-	mut e := 0
-	for e < liness.len {
-		mut n0 := liness[e][0]
-		mut n1 := liness[e][1]
-		mut vector_start := vectors[n0]
-		mut vector_end := vectors[n1]
+	mut sin_theta := math.sin(5)
+  mut cos_theta := math.cos(5)
+  
+	// Rotate around Z (round)
+	// mut rotate_z := vectors.len //0
+  // for rotate_z < vectors.len {
+  //   mut vector := vectors[rotate_z]
+  //   mut x := vector[0]
+  //   mut y := vector[1]
+  //   mut z := vector[2]
+	// 	mut test := abs(int(math.round(x * cos_theta + y * sin_theta)))
+	// 	mut test2 := abs(int(math.round(y * cos_theta - x * sin_theta)))
+		
+	// 	vector[0] = test
+	// 	vector[1] = test2
+  //   println("$vector")
+	// 	rotate_z++
+  // }
 
-		if vectors[n0] == vector1 && vectors[n1] == vector5 { 
-			vector_start = [second_position_variable, second_position_variable, -second_width_variable]
-			vector_end = [second_position_variable, second_width_variable, -second_width_variable]
-		}
-		else if vectors[n0] == vector1 && vectors[n1] == vector3 { 
-			vector_start = [main_position_variable, main_position_variable, main_width_variable]
-			vector_end = [second_position_variable, second_position_variable, -second_width_variable]
-		}
-		else if vectors[n0] == vector5 && vectors[n1] == vector7 { 
-			vector_start = [main_position_variable, main_width_variable, main_width_variable]
-			vector_end = [second_position_variable, second_width_variable, -second_width_variable]
-		}
-		else if vectors[n0] == vector3 && vectors[n1] == vector7 { 
-			vector_start = [main_position_variable, main_position_variable, main_width_variable]
-			vector_end = [main_position_variable, main_width_variable, main_width_variable]
-		}
-		else if vectors[n0] == vector0 && vectors[n1] == vector2 { 
-			vector_start = [main_width_variable, main_position_variable, main_width_variable]
-			vector_end = [second_width_variable, second_position_variable, -second_width_variable]
-		}
-		else if vectors[n0] == vector2 && vectors[n1] == vector6 { 
-			vector_start = [main_width_variable, main_position_variable, main_width_variable]
-			vector_end = [main_width_variable, main_width_variable, main_width_variable]
-		}
-		else if vectors[n0] == vector4 && vectors[n1] == vector6 { 
-			vector_start = [main_width_variable, main_width_variable, main_width_variable]
-			vector_end = [second_width_variable, second_width_variable, -second_width_variable]
-		}
+	// Rotate around Y (left/right)
+	mut rotate_y := 0
+  for rotate_y < vectors.len {
+    mut vector := vectors[rotate_y]
+    mut x := vector[0]
+    mut y := vector[1]
+    mut z := vector[2]
+		mut test := abs(int(math.round(x * cos_theta + z * sin_theta)))
+		mut test2 := abs(int(math.round(z * cos_theta - x * sin_theta)))
+		
+		vector[0] = test
+		vector[2] = test2
+    println("$vector")
+		rotate_y++
+  }
 
-
-		draw_line(vector_start[0], vector_start[1], vector_end[0], vector_end[1], mut board)
-		e++
+	// Rotate around X (top/bottom)
+	mut rotate_x := 0
+  for rotate_x < vectors.len {
+    mut vector := vectors[rotate_x]
+    mut x := vector[0]
+    mut y := vector[1]
+    mut z := vector[2]
+		mut test := abs(int(math.round(y * cos_theta + z * sin_theta)))
+		mut test2 := abs(int(math.round(z * cos_theta - y * sin_theta)))
+		
+		vector[1] = test
+		vector[2] = test2
+    println("$vector")
+		rotate_x++
   }
 
 
-
-
-
-
-	//? Thick/Front
-	// draw front top
-	// draw_line(main_position_variable,main_position_variable, main_width_variable,main_position_variable, mut board)
-	// // draw front left
-	// draw_line(main_position_variable,main_position_variable, main_position_variable,main_width_variable, mut board) 
-	// // draw front right
-	// draw_line(main_width_variable,main_position_variable, main_width_variable,main_width_variable, mut board) 
-	// // draw front bottom
-	// draw_line(main_position_variable,main_width_variable, main_width_variable,main_width_variable, mut board)
-
-	// //? Inner/Slim
-	// // draw back top
-	// draw_line(second_position_variable,second_position_variable, second_width_variable, second_position_variable, mut board) 
-	// // draw bottom left
-	// draw_line(second_position_variable,second_position_variable, second_position_variable,second_width_variable, mut board) 
-	// // draw bottom right
-	// draw_line(second_width_variable,second_position_variable, second_width_variable,second_width_variable, mut board) 
-	// // draw bottom bottom
-	// draw_line(second_position_variable,second_width_variable, second_width_variable,second_width_variable, mut board)
-
-	// //? Connect points
-	// //left top line
-	// draw_line(main_position_variable,main_position_variable, second_position_variable,second_position_variable, mut board)
-	// //right top line
-	// draw_line(main_width_variable,main_position_variable,  second_width_variable, second_position_variable, mut board)
-	// //left bottom line
-	// draw_line(main_position_variable,main_width_variable,  second_position_variable,second_width_variable, mut board)
-	// //right bottom line
-	// draw_line(main_width_variable,main_width_variable,  second_width_variable,second_width_variable, mut board)
+	// draw it
+	mut e := 0
+	for e < lines.len {
+		mut n0 := lines[e][0]
+		mut n1 := lines[e][1]
+		mut vector_start := vectors[n0]
+		mut vector_end := vectors[n1]
+		draw_line(vector_start[0], vector_start[1], vector_end[0], vector_end[1], mut board)
+		
+		e++
+  }
 }
-
-// fn rotate_y(theta int) {
-// 	mut sin_theta = sine(theta)
-//   mut cos_theta = cosse(theta)
-  
-//   for (mut n=0; n<vectors.length; n++) {
-//       mut vector = vectors[n]
-//       mut x = vector[0]
-//       mut z = vector[2]
-//       println("-Cur-: $vector")
-//       vector[0] = x * cos_theta + z * sin_theta
-//       vector[2] = z * cos_theta - x * sin_theta
-// 			println("-Cur-: $vector")
-//   }
-// }
 
 fn square_thick(width int, mut board []string) {
 	get_position := 15 - (width / 2)
