@@ -1,6 +1,4 @@
 import time
-import math
-import json
 
 fn get_angle(x int) int {
 	mut reuslt := (x * 360) / 100
@@ -90,10 +88,8 @@ fn draw_line(x1 int, y1 int, x2 int, y2 int, mut canvas []string) {
 }
 
 fn main() {
-	mut first_value := 12
-	mut second_value := 30
-	mut third_value := 50
-	
+	mut first_value := 56
+
 	mut first_value_angle := (get_angle(first_value) / 5)
 	mut middle_point := [13,13]
 	mut start_point := [1,13]
@@ -136,20 +132,83 @@ fn main() {
 		[3, 1,10],
 		[4, 1,9],
 		[5, 1,8],
-		[6, 1,7],
-		[7, 2,6],
-		// [8, 3,5],
-		[8, 4,4],
-		[9, 5,3],
-		[10, 6,2],
-		[11, 7,1],
-		[12, 8,1],
-		[13, 9,1],
-		[14, 10,1],
-		[15, 11,1],
-		[16, 12,1],
-		[17, 12,1],
+		[6, 1,7], //w
+		[7, 2,6], //
+		[8, 3,5], //
+		[9, 4,4], // 
+		[10,5,3], // 
+		[11, 6,2], //
+		[12, 7,1],
+		[13, 7,1], // w
+		[14, 8,1],
+		[15, 9,1],
+		[16, 10,1],
+		[17, 11,1],
+		[18, 12,1],
 		[18, 13,1] // work
+
+		[19, 14,1], // work
+		[20, 15,1],
+		[21, 16,1],
+		[22, 17,1],
+		[23, 18,1],
+		[24, 19,1],
+
+		[25, 20,2],
+    [26, 21,3],
+		[27, 22,4],
+		[28, 23,5],
+		[29, 24,6],
+
+		[30, 5,7],
+		[31, 5,8],
+		[32, 5,9],
+		[33, 5,10],
+		[34, 5,11],
+		[35, 5,12],
+		[36, 5,13] // work
+
+		[37, 5,14], // work
+		[38, 5,15],
+		[39, 5,16],
+		[40, 5,17],
+		[41, 5,18],
+		[42, 5,19],
+
+		[43, 24,20],
+    [44, 23,21],
+		[45, 22,22],
+		[46, 21,23],
+		[47, 20,24],
+
+		[48, 19,25],
+		[49, 18,25],
+		[50, 17,25],
+		[51, 16,25],
+		[52, 15,125],
+		[53, 14,25],
+		[54, 13,25] // work
+
+		[37, 12,25], // work
+		[38, 11,25],
+		[39, 10,25],
+		[40, 9,25],
+		[41, 8,25],
+		[42, 7,25],
+
+		[43, 6,24],
+    [44, 5,23],
+		[45, 4,22],
+		[46, 3,21],
+		[47, 2,20],
+
+		[48, 1,19],
+		[49, 1,18],
+		[50, 1,17],
+		[51, 1,16],
+		[52, 1,15],
+		[53, 1,14],
+		[54, 1,13] // work
 	]
 
 	start := time.now()
@@ -159,13 +218,16 @@ fn main() {
 			x_variable := key[1]
 			y_variable := key[2]
 
-			// draw_line(x_variable, y_variable, middle_point[0], middle_point[1], mut canvas)
-			draw_line(middle_point[0], middle_point[1], x_variable, y_variable, mut canvas)
-			println("$x_variable $y_variable")
+			// draw_line(middle_point[0], middle_point[1], x_variable, y_variable, mut canvas)
+			// println("$x_variable $y_variable")
 		}
+			draw_line(15,15, 11,25, mut canvas)
+			// println("$key")
 	}
 
-	draw_line(middle_point[0], middle_point[1], start_point[0], start_point[1], mut canvas)
+	// println(first_value_angle)
+
+	// draw_line(middle_point[0], middle_point[1], start_point[0], start_point[1], mut canvas)
 
 	end := time.since(start)
 	println(end)
