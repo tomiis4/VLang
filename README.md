@@ -72,7 +72,7 @@ for number in array {}
 ### Function
 ```v
 // Basic
-void name() {}
+fn name(arg string) {}
 
 // Main
 fn main() { }
