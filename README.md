@@ -62,7 +62,7 @@ x := os.input("Hello")
 ### For loop
 ```v
 for mut i:=0; i<5; i++ {}
-```¨
+```
 ### For loop array
 ```v
 for number in array {}
